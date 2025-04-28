@@ -1,0 +1,111 @@
+//Q1
+
+CREATE TABLE departments (
+department_id INT unsigned NOT NULL auto_increment PRIMARY KEY,
+name　VARCHAR(20) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+//Q2
+
+ALTER TABLE people
+ADD COLUMN department_id INT unsigned;
+
+//Q3
+//【departments】
+INSERT INTO departments (department_id, name)
+VALUES	
+	(1, '営業'),
+	(2, '開発'),
+	(3, '経理'),
+	(4, '人事'),
+	(5, '情報システム');
+
+//【people】
+INSERT INTO people (name, email, department_id, age, gender)
+VALUES	
+	('山崎さん', 'yamazaki@gizumo.jp', 1, 26, 1),
+	('森さん', 'mori@gizumo.jp', 1, 28, 2),
+	('池田さん', 'ikeda@gizumo.jp', 1, 41, 1),
+	('橋本さん', 'hashimoto@gizumo'.jp, 2, 44, 1),
+	('阿部さん', 'abe@gizumo.jp', 2, 20, 2),
+	('石川さん', 'ishikawa@gizumo.jp', 2, 32, 1),
+	('山下さん', 'yamashita@gizumo.jp', 2, 47, 1);
+
+//【reports】
+INSERT INTO reports (person_id, content)
+VALUES	
+	(1, '会議してました'),
+	(2, '掃除してました'),
+	(3, '請求処理してました'),
+	(4, '外回りしました'),
+	(6, '営業しました'),
+	(7, '問い合せ対応'),
+	(8, '電話営業'),
+	(9, '役員会議'),
+	(10, '部長レビュー')
+	(11, '受注先との会議'),
+	(12, 'チームレビュー');
+
+//Q4
+
+SELECT * FROM people WHERE department_id IS NULL;
+
+UPDATE people
+SET department_id = 3
+WHERE department_id IS NULL AND person_id = 1;
+
+UPDATE people
+SET department_id = 4
+WHERE department_id IS NULL AND person_id = 2;
+
+UPDATE people
+SET department_id = 5
+WHERE department_id IS NULL AND person_id = 3;
+
+UPDATE people
+SET department_id = 5
+WHERE department_id IS NULL AND person_id = 4;
+
+//Q5
+
+SELECT name, age FROM people
+WHERE gender = 1,
+ORDER BY age DESC;
+
+//Q6
+
+peopleテーブルからdepartment_idが1のものをnameとemailとageというカラムをcreated_atの値を基準にレコードを昇順になるよう取得します
+
+//Q7
+
+SELECT age, name, gender FROM people
+WHERE age BETWEEN 20 and 29 OR age BETWEEN 40 and 49;
+
+//Q8
+
+SELECT * FROM people
+WHERE department = 1,
+ORDER BY age ASC;
+
+//Q9
+
+SELECT AVG(age) AS average_age FROM people
+WHERE department_id = 2 and gender = 2;
+
+//Q10 
+
+SELECT	people.name, 
+	people.department_id, 
+	departments.name AS department_name 
+FROM people
+INNER JOIN departments ON people.department_id = departments.department_id
+INNER JOIN reports ON people.person_id = reports.person_id;
+
+//Q11
+
+SELECT name FROM people
+LEFT JOIN reports on people.person_id = reports.person_id
+WHERE report_id IS NULL;
+
