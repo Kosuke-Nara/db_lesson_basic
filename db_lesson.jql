@@ -15,7 +15,8 @@ ADD COLUMN department_id INT unsigned;
 //Q3
 //【departments】
 INSERT INTO departments (department_id, name)
-VALUES	(1, '営業'),
+VALUES	
+	(1, '営業'),
 	(2, '開発'),
 	(3, '経理'),
 	(4, '人事'),
@@ -23,7 +24,8 @@ VALUES	(1, '営業'),
 
 //【people】
 INSERT INTO people (name, email, department_id, age, gender)
-VALUES	('山崎さん', 'yamazaki@gizumo.jp', 1, 26, 1),
+VALUES	
+	('山崎さん', 'yamazaki@gizumo.jp', 1, 26, 1),
 	('森さん', 'mori@gizumo.jp', 1, 28, 2),
 	('池田さん', 'ikeda@gizumo.jp', 1, 41, 1),
 	('橋本さん', 'hashimoto@gizumo'.jp, 2, 44, 1),
@@ -33,7 +35,8 @@ VALUES	('山崎さん', 'yamazaki@gizumo.jp', 1, 26, 1),
 
 //【reports】
 INSERT INTO reports (person_id, content)
-VALUES	(1, '会議してました'),
+VALUES	
+	(1, '会議してました'),
 	(2, '掃除してました'),
 	(3, '請求処理してました'),
 	(4, '外回りしました'),
@@ -84,8 +87,7 @@ WHERE age BETWEEN 20 and 29 OR age BETWEEN 40 and 49;
 
 SELECT * FROM people
 WHERE department = 1,
-ORDER BY age;
-// ORDER BYはデフォルトで昇順のため
+ORDER BY age ASC;
 
 //Q9
 
